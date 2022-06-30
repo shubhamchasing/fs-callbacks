@@ -29,36 +29,35 @@ mkdir(dir, (err, path) => {
         console.log(`${dir} directory has been created.`)
         let files = []
         let file = Math.random().toString(36).substring(2) + '.json'
-        let fullPath = path + '/' + file
 
-        writeFile(fullPath, '{"hello" : "async"}', (err) => {
+        writeFile(file, '{"hello" : "async"}', (err) => {
             if (err) {
                 console.error(err)
             }
             else {
                 console.log(`${file} has been created.`)
 
-                files.push(fullPath)
+                files.push(file)
 
                 let file2 = Math.random().toString(36).substring(2) + '.json'
-                let fullPath2 = path + '/' + file2
-                writeFile(fullPath2, '{"hello" : "async"}', (err) => {
+                
+                writeFile(file2, '{"hello" : "async"}', (err) => {
                     if (err) {
                         console.error(err)
                     }
                     else {
                         console.log(`${file2} has been created.`)
-                        files.push(fullPath2)
+                        files.push(file2)
 
                         let file3 = Math.random().toString(36).substring(2) + '.json'
-                        let fullPath3 = path + '/' + file3
-                        writeFile(fullPath3, '{"hello" : "async"}', (err) => {
+                        
+                        writeFile(file3, '{"hello" : "async"}', (err) => {
                             if (err) {
                                 console.error(err)
                             }
                             else {
                                 console.log(`${file3} has been created.`)
-                                files.push(fullPath3)
+                                files.push(file3)
 
                                 counter(files)
 
