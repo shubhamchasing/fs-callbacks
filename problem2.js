@@ -1,20 +1,21 @@
 const fs = require('fs');
+const path = require('path');
 
-const readFile = ( path, callback) => {
-    fs.readFile(__dirname + '/'+path, 'utf8', callback)
+const readFile = ( file, callback) => {
+    fs.readFile(path.join(__dirname,file), 'utf8', callback)
 }
 
 const convertToUpperCase = (newFile, data, callback) => {
     //console.log(data)
     const upperCaseData = (data).toUpperCase()
-    fs.writeFile(newFile, upperCaseData, (err) => {
+    fs.writeFile(path.join(__dirname,newFile), upperCaseData, (err) => {
         if (err) {
             console.error(err)
 
         }
         else {
             console.log(`${newFile} has been created.`)
-            fs.appendFile(__dirname + '/'+'filenames.txt', newFile + '/n', (err) => {
+            fs.appendFile(path.join(__dirname,'filenames.txt'), newFile + '\n', (err) => {
                 if (err) {
                     console.error(err)
                 }
@@ -30,13 +31,13 @@ const convertToUpperCase = (newFile, data, callback) => {
 
 const lowerCaseAndSplit = (newFile, data, callback) => {
     const lowerCaseData = data.toLowerCase().replaceAll('. ', '\n');
-    fs.writeFile(newFile, data, (err) => {
+    fs.writeFile(path.join(__dirname,newFile), data, (err) => {
         if (err) {
             console.error(err)
         }
         else {
             console.log(`${newFile} has been created.`)
-            fs.appendFile(__dirname + '/'+'filenames.txt', newFile + '/n', (err) => {
+            fs.appendFile(path.join(__dirname,'filenames.txt'), newFile + '\n', (err) => {
                 if (err) {
                     console.error(err)
                 }
@@ -50,14 +51,14 @@ const lowerCaseAndSplit = (newFile, data, callback) => {
 }
 
 const sortingOfData = (newFile, data, callback) => {
-    const newData = data.split('\n').sort().join('/n')
-    fs.writeFile(newFile, newData, (err) => {
+    const newData = data.split('\n').sort().join('\n')
+    fs.writeFile(path.join(__dirname,newFile), newData, (err) => {
         if (err) {
             console.error(err)
         }
         else {
             console.log(`${newFile} has been created.`)
-            fs.appendFile(__dirname + '/'+'filenames.txt', newFile + '/n', (err) => {
+            fs.appendFile(path.join(__dirname,'filenames.txt'), newFile + '\n', (err) => {
                 if (err) {
                     console.error(err)
                 }
@@ -72,15 +73,16 @@ const sortingOfData = (newFile, data, callback) => {
 }
 
 const removeNewFiles = () => { 
-    fs.readFile('filenames.txt','utf8', (err,data)=>{
+    fs.readFile(path.join(__dirname,'filenames.txt'),'utf8', (err,data)=>{
         if (err){
             console.error(err)
         }
 
         else{
-            data.split('/n').forEach(file => {
+            let splitData = data.split('\n')
+            splitData.forEach(file => {
                 if(file !== ''){
-            fs.unlink(file, (err)=>{
+            fs.unlink(path.join(__dirname,file), (err)=>{
                 if (err){
                     console.error(err)
                 }
